@@ -1,0 +1,244 @@
+#+title: Doom Emacs Config in Org Mode
+This is my config in a config.org style. It could be fucky. I'm not sure.
+
+#+begin_src emacs-lisp :tangle yes
+;;; config.el --- -*- lexical-binding: t -*-
+#+end_src
+
+* General Tutorial Remarks to know:
+
+ Whenever you reconfigure a package, make sure to wrap your config in an
+ `after!' block, otherwise Doom's defaults may override your settings. E.g.
+
+   (after! PACKAGE
+     (setq x y))
+
+ The exceptions to this rule:
+
+   - Setting file/directory variables (like `org-directory')
+   - Setting variables which explicitly tell you to set them before their
+     package is loaded (see 'C-h v VARIABLE' to look up their documentation).
+   - Setting doom variables (which start with 'doom-' or '+').
+
+ Here are some additional functions/macros that will help you configure Doom.
+
+ - `load!' for loading external *.el files relative to this one
+ - `use-package!' for configuring packages
+ - `after!' for running code after a package has loaded
+ - `add-load-path!' for adding directories to the `load-path', relative to
+   this file. Emacs searches the `load-path' when you load packages with
+   `require' or `use-package'.
+ - `map!' for binding new keys
+
+ To get information about any of these functions/macros, move the cursor over
+ the highlighted symbol at press 'K' (non-evil users must press 'C-c c k').
+ This will open documentation for it, including demos of how they are used.
+ Alternatively, use `C-h o' to look up a symbol (functions, variables, faces,
+ etc).
+
+ You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
+ they are implemented.
+
+* User Information
+This is some generic information about the user, such as name, email address, etc.
+#+begin_src emacs-lisp :tangle yes
+(setq user-full-name "Britin Hanna"
+      user-mail-address "britin1@ksu.edu")
+#+end_src
+* Themes and Styles
+This is the section for anything stylistic in nature, such as themes or other pretty things
+** Doom Theme
+Sets the theme. Will be changed a lot.
+#+begin_src emacs-lisp :tangle yes
+(setq doom-theme 'doom-ir-black)
+(set-face-attribute 'default nil :height 160)
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+#+end_src
+** Line Numbers
+I like relative so I can use my Evil controls better
+#+begin_src emacs-lisp :tangle yes
+(setq display-line-numbers-type 'relative)
+#+end_src
+
+** Battery Symbol
+I use a laptop, so the battery symbol is nice.
+#+begin_src emacs-lisp :tangle yes
+(unless (equal "Battery status not available"
+               (battery))
+  (display-battery-mode 1))
+#+end_src
+
+** Fonts
+I don't have any configurations for fonts yet, but I figured including the config snippet here would be good.
+
+ Doom exposes five (optional) variables for controlling fonts in Doom:
+
+ - `doom-font' -- the primary font to use
+ - `doom-variable-pitch-font' -- a non-monospace font (where applicable)
+ - `doom-big-font' -- used for `doom-big-font-mode'; use this for
+   presentations or streaming.
+ - `doom-symbol-font' -- for symbols
+ - `doom-serif-font' -- for the `fixed-pitch-serif' face
+
+ See 'C-h v doom-font' for documentation and more examples of what they
+ accept. For example:
+
+(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
+       doom-variable-pitch-font (font-spec :family "Fira Sans" :size 13))
+
+ If you or Emacs can't find your font, use 'M-x describe-font' to look them
+ up, `M-x eval-region' to execute elisp code, and 'M-x doom/reload-font' to
+ refresh your font settings. If Emacs still can't find your font, it likely
+ wasn't installed correctly. Font issues are rarely Doom issues!
+* Note-Taking
+** Org-Mode
+This sets the org-directory for Org-mode.
+#+begin_src emacs-lisp :tangle yes
+(setq org-directory "~/org/")
+
+#+end_src
+*** Org-Roam
+This sets the directory for Org-Roam
+#+begin_src emacs-lisp :tangle yes
+(setq org-roam-directory "~/org/notes")
+#+end_src
+*** Org-Fragtog
+This helps with LaTeX inline previewing.
+#+begin_src emacs-lisp :tangle yes
+(use-package! org-fragtog
+:after org
+:hook (org-mode . org-fragtog-mode) ; this auto-enables it when you enter an org-buffer, remove if you do not want this
+:config
+)
+#+end_src
+**** Fragtog Scaling
+Sets the scaling to be more consistent to the terminal text
+#+begin_src emacs-lisp :tangle yes
+(after! org
+  (plist-put org-format-latex-options
+             :scale .5)
+
+  (setq org-preview-latex-default-process 'dvisvgm))
+#+end_src
+** Deft
+This configures deft and sets it's directory
+#+begin_src emacs-lisp :tangle yes
+(use-package! deft
+  :config
+  (setq deft-directory "~/org/notes"))
+#+end_src
+** LaTeX
+*** LaTeX Viewer
+Sets LaTeX viewer.
+#+begin_src emacs-lisp :tangle yes
+(setq +latex-viewers '(pdf-tools))
+#+end_src
+* File Management
+** Dirvish
+I don't really know why you don't work. But these handy dandy little quick-access references are nice.
+#+begin_src emacs-lisp :tangle yes
+(after! dirvish
+  (setq! dirvish-quick-access-entries
+         `(("h" "~/"                          "Home")
+           ("e" ,user-emacs-directory         "Emacs user directory")
+           ("c" "~/Code/"                     "Code")
+           ("d" "~/Downloads/"                "Downloads")
+           ("o" "~/org/"                       "Org-mode Files")
+           ("t" "~/.local/share/Trash/files/" "Trash")))
+  (dirvish-override-dired-mode))
+#+end_src
+
+* Coding
+** C Language
+*** Language Server
+        This sets the language server to use clangd everywhere it can. Pretty much copied straight from the forums.
+       #+begin_src emacs-lisp :tangle yes
+(setq lsp-clients-clangd-args '("-j=3"
+				"--background-index"
+				"--clang-tidy"
+				"--completion-style=detailed"
+				"--header-insertion=never"
+				"--header-insertion-decorators=0"))
+(after! lsp-clangd (set-lsp-priority! 'clangd 2))
+       #+end_src
+
+*** RealGUD Config
+#+begin_src emacs-lisp :tangle yes
+(after! realgud
+(setq realgud-srcbuf-lock nil))
+#+end_src
+
+* Communnication and Calendars
+** Personal Email Setup mu4e
+#+begin_src emacs-lisp :tangle yes
+(setq mu4e-update-interval 60)
+(after! mu4e
+  (setq mu4e-get-mail-command "mbsync -a")
+  (setq sendmail-program (executable-find "msmtp")
+	send-mail-function #'smtpmail-send-it
+	message-sendmail-f-is-evil t
+	message-sendmail-extra-arguments '("--read-envelope-from")
+	message-send-mail-function #'message-send-mail-with-sendmail))
+
+(set-email-account! "ksu.edu"
+  '((mu4e-sent-folder       . "/School/Sent Items")
+    (mu4e-drafts-folder     . "/School/Drafts")
+    (mu4e-trash-folder      . "/School/Deleted Items")
+    (mu4e-refile-folder     . "/School/All Mail")
+    (smtpmail-smtp-user     . "britin1@ksu.edu")
+    (mu4e-compose-signature . "---\nBest, \nBritin Hanna\n Kansas State University - Electrical Engineering - Junior \n College of Engineering Student Senator \n KSU Department of Mathematics Office Worker \n (620) 212-9533"))
+  t)
+
+#+end_src
+
+* EAF Config
+#+begin_src emacs-lisp :tangle yes
+(use-package! eaf
+  :load-path "~/.elisp/emacs-application-framework"
+  :init
+  :custom
+  (eaf-browser-continue-where-left-off t)
+  (eaf-browser-enable-adblocker t)
+  (browse-url-browser-function 'eaf-open-browser) ;; Make EAF Browser my default browser
+  :config
+  (defalias 'browse-web #'eaf-open-browser)
+
+  (require 'eaf-file-manager)
+  (require 'eaf-music-player)
+  (require 'eaf-image-viewer)
+  (require 'eaf-camera)
+  (require 'eaf-demo)
+  (require 'eaf-airshare)
+  (require 'eaf-terminal)
+  (require 'eaf-markdown-previewer)
+  (require 'eaf-video-player)
+  (require 'eaf-vue-demo)
+  (require 'eaf-file-sender)
+  (require 'eaf-pdf-viewer)
+  (require 'eaf-mindmap)
+  (require 'eaf-netease-cloud-music)
+  (require 'eaf-jupyter)
+  (require 'eaf-org-previewer)
+  (require 'eaf-system-monitor)
+  (require 'eaf-rss-reader)
+  (require 'eaf-file-browser)
+  (require 'eaf-browser)
+  (require 'eaf-org)
+  (require 'eaf-mail)
+  (require 'eaf-git)
+  (when (display-graphic-p)
+    (require 'eaf-all-the-icons))
+
+  (require 'eaf-evil)
+  (define-key key-translation-map (kbd "SPC")
+    (lambda (prompt)
+      (if (derived-mode-p 'eaf-mode)
+          (pcase eaf--buffer-app-name
+            ("browser" (if  (string= (eaf-call-sync "call_function" eaf--buffer-id "is_focus") "True")
+                           (kbd "SPC")
+                         (kbd eaf-evil-leader-key)))
+            ("pdf-viewer" (kbd eaf-evil-leader-key))
+            ("image-viewer" (kbd eaf-evil-leader-key))
+            (_  (kbd "SPC")))
+        (kbd "SPC")))))
+#+end_src
