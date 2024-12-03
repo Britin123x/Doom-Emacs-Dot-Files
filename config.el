@@ -38,7 +38,8 @@
   (setq! dirvish-quick-access-entries
          `(("h" "~/"                          "Home")
            ("e" ,user-emacs-directory         "Emacs user directory")
-           ("c" "~/Code/"                     "Code")
+           ("s" "~/Classwork/"                     "Schoolwork")
+           ("c" "~/Codebase/"                     "Codebase")
            ("d" "~/Downloads/"                "Downloads")
            ("o" "~/org/"                       "Org-mode Files")
            ("t" "~/.local/share/Trash/files/" "Trash")))
