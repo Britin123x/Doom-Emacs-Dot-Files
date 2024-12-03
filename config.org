@@ -51,7 +51,6 @@ This is the section for anything stylistic in nature, such as themes or other pr
 Sets the theme. Will be changed a lot.
 #+begin_src emacs-lisp :tangle yes
 (setq doom-theme 'doom-ir-black)
-(set-face-attribute 'default nil :height 160)
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 #+end_src
 ** Line Numbers
