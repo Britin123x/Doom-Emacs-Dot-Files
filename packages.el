@@ -50,10 +50,3 @@
 ;; (unpin! t)
 
 (package! org-fragtog)
-(use-package eaf
-  :straight ( eaf
-              :type git
-              :host github
-              :repo "emacs-eaf/emacs-application-framework"
-              :files ("*")
-              :pre-build (("python3" "install-eaf.py" "--install" "pdf-viewer" "--ignore-sys-deps"))))
