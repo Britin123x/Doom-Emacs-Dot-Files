@@ -59,14 +59,6 @@ I like relative so I can use my Evil controls better
 (setq display-line-numbers-type 'relative)
 #+end_src
 
-** Battery Symbol
-I use a laptop, so the battery symbol is nice.
-#+begin_src emacs-lisp :tangle yes
-(unless (equal "Battery status not available"
-               (battery))
-  (display-battery-mode 1))
-#+end_src
-
 ** Fonts
 I don't have any configurations for fonts yet, but I figured including the config snippet here would be good.
 
@@ -93,13 +85,13 @@ I don't have any configurations for fonts yet, but I figured including the confi
 ** Org-Mode
 This sets the org-directory for Org-mode.
 #+begin_src emacs-lisp :tangle yes
-(setq org-directory "~/org/")
+(setq org-directory "~/OneDrive/org/")
 
 #+end_src
 *** Org-Roam
 This sets the directory for Org-Roam
 #+begin_src emacs-lisp :tangle yes
-(setq org-roam-directory "~/org/notes")
+(setq org-roam-directory "~/OneDrive/org/notes")
 #+end_src
 *** Org-Fragtog
 This helps with LaTeX inline previewing.
@@ -124,7 +116,7 @@ This configures deft and sets it's directory
 #+begin_src emacs-lisp :tangle yes
 (use-package! deft
   :config
-  (setq deft-directory "~/org/notes"))
+  (setq deft-directory "~/OneDrive/org/notes"))
 #+end_src
 ** LaTeX
 *** LaTeX Viewer
@@ -140,11 +132,10 @@ I don't really know why you don't work. But these handy dandy little quick-acces
   (setq! dirvish-quick-access-entries
          `(("h" "~/"                          "Home")
            ("e" ,user-emacs-directory         "Emacs user directory")
-           ("s" "~/Classwork/"                     "Schoolwork")
-           ("c" "~/Codebase/"                     "Codebase")
+           ("s" "~/OneDrive/Classwork/"                     "Schoolwork")
+           ("c" "~/OneDrive/Codebase/"                     "Codebase")
            ("d" "~/Downloads/"                "Downloads")
-           ("o" "~/org/"                       "Org-mode Files")
-           ("t" "~/.local/share/Trash/files/" "Trash")))
+           ("o" "~/OneDrive/org/"                       "Org-mode Files")
   (dirvish-override-dired-mode))
 #+end_src
 
@@ -168,25 +159,3 @@ I don't really know why you don't work. But these handy dandy little quick-acces
 (setq realgud-srcbuf-lock nil))
 #+end_src
 
-* Communnication and Calendars
-** Personal Email Setup mu4e
-#+begin_src emacs-lisp :tangle yes
-(setq mu4e-update-interval 60)
-(after! mu4e
-  (setq mu4e-get-mail-command "mbsync -a")
-  (setq sendmail-program (executable-find "msmtp")
-	send-mail-function #'smtpmail-send-it
-	message-sendmail-f-is-evil t
-	message-sendmail-extra-arguments '("--read-envelope-from")
-	message-send-mail-function #'message-send-mail-with-sendmail))
-
-(set-email-account! "ksu.edu"
-  '((mu4e-sent-folder       . "/School/Sent Items")
-    (mu4e-drafts-folder     . "/School/Drafts")
-    (mu4e-trash-folder      . "/School/Deleted Items")
-    (mu4e-refile-folder     . "/School/All Mail")
-    (smtpmail-smtp-user     . "britin1@ksu.edu")
-    (mu4e-compose-signature . "---\nBest, \nBritin Hanna\n Kansas State University - Electrical Engineering - Junior \n College of Engineering Student Senator \n KSU Department of Mathematics Office Worker \n (620) 212-9533"))
-  t)
-
-#+end_src

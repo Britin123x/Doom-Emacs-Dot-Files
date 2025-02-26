@@ -8,13 +8,9 @@
 
 (setq display-line-numbers-type 'relative)
 
-(unless (equal "Battery status not available"
-               (battery))
-  (display-battery-mode 1))
+(setq org-directory "~/OneDrive/org/")
 
-(setq org-directory "~/org/")
-
-(setq org-roam-directory "~/org/notes")
+(setq org-roam-directory "~/OneDrive/org/notes")
 
 (use-package! org-fragtog
 :after org
@@ -30,7 +26,7 @@
 
 (use-package! deft
   :config
-  (setq deft-directory "~/org/notes"))
+  (setq deft-directory "~/OneDrive/org/notes"))
 
 (setq +latex-viewers '(pdf-tools))
 
@@ -38,11 +34,10 @@
   (setq! dirvish-quick-access-entries
          `(("h" "~/"                          "Home")
            ("e" ,user-emacs-directory         "Emacs user directory")
-           ("s" "~/Classwork/"                     "Schoolwork")
-           ("c" "~/Codebase/"                     "Codebase")
+           ("s" "~/OneDrive/Classwork/"                     "Schoolwork")
+           ("c" "~/OneDrive/Codebase/"                     "Codebase")
            ("d" "~/Downloads/"                "Downloads")
-           ("o" "~/org/"                       "Org-mode Files")
-           ("t" "~/.local/share/Trash/files/" "Trash")))
+           ("o" "~/OneDrive/org/"                       "Org-mode Files")
   (dirvish-override-dired-mode))
 
 (setq lsp-clients-clangd-args '("-j=3"
@@ -55,21 +50,3 @@
 
 (after! realgud
 (setq realgud-srcbuf-lock nil))
-
-(setq mu4e-update-interval 60)
-(after! mu4e
-  (setq mu4e-get-mail-command "mbsync -a")
-  (setq sendmail-program (executable-find "msmtp")
-	send-mail-function #'smtpmail-send-it
-	message-sendmail-f-is-evil t
-	message-sendmail-extra-arguments '("--read-envelope-from")
-	message-send-mail-function #'message-send-mail-with-sendmail))
-
-(set-email-account! "ksu.edu"
-  '((mu4e-sent-folder       . "/School/Sent Items")
-    (mu4e-drafts-folder     . "/School/Drafts")
-    (mu4e-trash-folder      . "/School/Deleted Items")
-    (mu4e-refile-folder     . "/School/All Mail")
-    (smtpmail-smtp-user     . "britin1@ksu.edu")
-    (mu4e-compose-signature . "---\nBest, \nBritin Hanna\n Kansas State University - Electrical Engineering - Junior \n College of Engineering Student Senator \n KSU Department of Mathematics Office Worker \n (620) 212-9533"))
-  t)
