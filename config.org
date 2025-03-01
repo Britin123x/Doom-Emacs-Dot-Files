@@ -47,11 +47,14 @@ This is some generic information about the user, such as name, email address, et
 #+end_src
 * Themes and Styles
 This is the section for anything stylistic in nature, such as themes or other pretty things
+** WSL Window Size
+#+begin_src emacs-lisp :tangle yes
+
+#+end_src
 ** Doom Theme
 Sets the theme. Will be changed a lot.
 #+begin_src emacs-lisp :tangle yes
-(setq doom-theme 'doom-ir-black)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+(setq doom-theme 'doom-one-light)
 #+end_src
 ** Line Numbers
 I like relative so I can use my Evil controls better
@@ -132,11 +135,10 @@ I don't really know why you don't work. But these handy dandy little quick-acces
   (setq! dirvish-quick-access-entries
          `(("h" "~/"                          "Home")
            ("e" ,user-emacs-directory         "Emacs user directory")
-           ("s" "~/OneDrive/Classwork/"                     "Schoolwork")
-           ("c" "~/OneDrive/Codebase/"                     "Codebase")
-           ("d" "~/Downloads/"                "Downloads")
+           ("s" "~/Classwork/"                     "Schoolwork")
+           ("c" "~/Codebase/"                     "Codebase")
            ("o" "~/OneDrive/org/"                       "Org-mode Files")
-  (dirvish-override-dired-mode))
+  (dirvish-override-dired-mode))))
 #+end_src
 
 * Coding
@@ -152,10 +154,3 @@ I don't really know why you don't work. But these handy dandy little quick-acces
 				"--header-insertion-decorators=0"))
 (after! lsp-clangd (set-lsp-priority! 'clangd 2))
        #+end_src
-
-*** RealGUD Config
-#+begin_src emacs-lisp :tangle yes
-(after! realgud
-(setq realgud-srcbuf-lock nil))
-#+end_src
-

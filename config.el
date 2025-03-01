@@ -3,8 +3,9 @@
 (setq user-full-name "Britin Hanna"
       user-mail-address "britin1@ksu.edu")
 
-(setq doom-theme 'doom-ir-black)
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+
+(setq doom-theme 'doom-one-light)
 
 (setq display-line-numbers-type 'relative)
 
@@ -34,11 +35,10 @@
   (setq! dirvish-quick-access-entries
          `(("h" "~/"                          "Home")
            ("e" ,user-emacs-directory         "Emacs user directory")
-           ("s" "~/OneDrive/Classwork/"                     "Schoolwork")
-           ("c" "~/OneDrive/Codebase/"                     "Codebase")
-           ("d" "~/Downloads/"                "Downloads")
+           ("s" "~/Classwork/"                     "Schoolwork")
+           ("c" "~/Codebase/"                     "Codebase")
            ("o" "~/OneDrive/org/"                       "Org-mode Files")
-  (dirvish-override-dired-mode))
+  (dirvish-override-dired-mode))))
 
 (setq lsp-clients-clangd-args '("-j=3"
 				"--background-index"
@@ -47,6 +47,3 @@
 				"--header-insertion=never"
 				"--header-insertion-decorators=0"))
 (after! lsp-clangd (set-lsp-priority! 'clangd 2))
-
-(after! realgud
-(setq realgud-srcbuf-lock nil))
