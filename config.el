@@ -30,6 +30,13 @@
   (setq deft-directory "~/OneDrive/org/notes"))
 
 (setq +latex-viewers '(pdf-tools))
+(after! latex
+  (add-hook 'latex-preview-pane-mode-hook
+    (lambda()
+      (setq-local shell-escape-mode "-shell-escape")
+      (setq-local pdf-latex-command "latexmk")))
+  (setq TeX-command-extra-options "--shell-escape")
+  )
 
 (after! dirvish
   (setq! dirvish-quick-access-entries

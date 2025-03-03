@@ -1,0 +1,62 @@
+# -*- mode: snippet -*-
+# name: IEEE template
+# uuid:
+# key: ieee
+# condition: t
+# --
+
+\documentclass[9pt,draftclsnofoot, journal]{IEEEtran}
+\usepackage{listings}
+\usepackage{minted}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{caption}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+\usepackage{siunitx}
+\usepackage[american, siunitx]{circuitikz}
+\usepackage{tabularx}
+\usepackage{graphicx}
+
+\usetikzlibrary{automata,positioning}
+\ctikzset{
+  monopoles/vcc/arrow={Triangle[width=0.8*\scaledwidth,
+  length=\scaledwidth]},
+  monopoles/vee/arrow={Triangle[width=6pt, length=8pt]},
+  diodes/scale={0.9},
+  voltage/distance from node=0.5cm,
+}
+
+\sisetup{
+  detect-all,          % Detect numbers and units in both math and text mode
+  per-mode = symbol,     % Automatically handle units per operator like m/s
+  output-complex-root = j, % Use EE notation of j for complex numbers
+  complex-root-position = before-number, % Puts the "j" in front of the number in rectangular form
+}
+
+\captionsetup[table]{textfont={sc,footnotesize}, labelfont=footnotesize,
+labelsep=newline}
+
+\newcommand{\courseName}{Course Name}
+\newcommand{\assignmentName}{Assignment Name}
+\newcommand{\authorName}{Britin Hanna}
+\newcommand{\dueDate}{Due on Month Day, Year}
+
+
+
+\title{\courseName\ - \assignmentName\}
+\author{\authorName\}
+\IEEEspecialpapernotice{\dueDate\}
+\markboth{\authorName\ - \assignmentName}{\courseName\ - \dueDate\}
+
+\begin{document}
+
+\maketitle
+\onecolumn
+
+\section{Summary}
+
+\end{document}
