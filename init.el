@@ -21,7 +21,7 @@
        ;;layout            ; auie,ctsrnm is the superior home row
 
        :completion
-       ;;company           ; the ultimate code completion backend
+       (company +childframe) ; the ultimate code completion backend
        (corfu +orderless +icons)  ; complete with cap(f), cape and a flying feather!
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
@@ -77,10 +77,10 @@
        :term
        ;;eshell            ; the elisp shell that works everywhere
        ;;shell             ; simple shell REPL for Emacs
-       term              ; basic terminal emulator for Emacs
-       ;;vterm             ; the best terminal emulation in Emacs
+       ;; TERM              ; BASIC TERMINAL EMULATOR:q for Emacs
+       ;; ;;vterm             ; the best terminal emulation in Emacs
 
-       :checkers
+       ;; :checkers
        syntax              ; tasing you for every semicolon you forget
        (spell +everywhere +aspell) ; tasing you for misspelling mispelling
        grammar           ; tasing grammar mistake every you make
@@ -150,7 +150,7 @@
        ;;lua               ; one-based indices? one-based indices
        markdown          ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
-       ;;nix               ; I hereby declare "nix geht mehr!"
+       (nix +tree-sitter +lsp); I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org +brain +dragndrop +gnuplot +hugo +journal +noter +present +pretty +roam2) ; organize your plain life in plain text
        (php +lsp +tree-sitter)      ; perl's insecure younger brother

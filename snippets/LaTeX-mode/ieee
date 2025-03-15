@@ -7,10 +7,9 @@
 
 \documentclass[9pt,draftclsnofoot, journal]{IEEEtran}
 \usepackage{listings}
-\usepackage{minted}
+\usepackage{xcolor}
 \usepackage{amsmath}
 \usepackage{amsthm}
-\usepackage{caption}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{tikz}
@@ -20,6 +19,7 @@
 \usepackage[american, siunitx]{circuitikz}
 \usepackage{tabularx}
 \usepackage{graphicx}
+\usepackage[labelformat=simple]{subcaption}
 
 \usetikzlibrary{automata,positioning}
 \ctikzset{
@@ -37,20 +37,41 @@
   complex-root-position = before-number, % Puts the "j" in front of the number in rectangular form
 }
 
-\captionsetup[table]{textfont={sc,footnotesize}, labelfont=footnotesize,
-labelsep=newline}
 
-\newcommand{\courseName}{Course Name}
-\newcommand{\assignmentName}{Assignment Name}
+\lstset{
+  language=C,
+  frame=single,
+  basicstyle = \ttfamily\tiny,
+  numbers=left,
+  numberstyle=\tiny,
+  showlines=false,
+  emptylines=3,
+  resetmargins=true,
+  breaklines=true,
+  columns=flexible,
+  tabsize=2,
+  linewidth=\columnwidth,
+  xleftmargin=\IEEEilabelindent,
+}
+
+\DeclareCaptionLabelSeparator{periodspace}{.\quad}
+\captionsetup{font=footnotesize,labelsep=periodspace,singlelinecheck=false}
+\captionsetup[sub]{font=footnotesize,singlelinecheck=true}
+\renewcommand\thesubfigure{(\alph{subfigure})}
+
+
+\newcommand{\courseName}{ECE 526: Electronics 2}
+\newcommand{\assignmentName}{HW7 - Phase Margin Compensation}
 \newcommand{\authorName}{Britin Hanna}
-\newcommand{\dueDate}{Due on Month Day, Year}
+\newcommand{\dueDate}{Due on March 14, 2025}
 
 
 
-\title{\courseName\ - \assignmentName\}
-\author{\authorName\}
-\IEEEspecialpapernotice{\dueDate\}
-\markboth{\authorName\ - \assignmentName}{\courseName\ - \dueDate\}
+\title{\courseName\ - \assignmentName}
+\author{\authorName}
+\IEEEspecialpapernotice{\dueDate}
+\markboth{\authorName\ - \assignmentName}{\courseName\ - \dueDate}
+
 
 \begin{document}
 
